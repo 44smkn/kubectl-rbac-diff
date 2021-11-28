@@ -1,1 +1,3 @@
-# kubectl-rbac-diff
+# kubectl-role-diff
+
+TODO: Write description about this application
