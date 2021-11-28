@@ -67,7 +67,7 @@ func NewPolicyTableRow(definition model.APIResource, declaredVerbs map[string]bo
 			_, ok := declaredVerbs["list"]
 			row.verbGet = &ok
 		case "patch":
-			_, ok := declaredVerbs["list"]
+			_, ok := declaredVerbs["patch"]
 			row.verbGet = &ok
 		case "update":
 			_, ok := declaredVerbs["update"]
