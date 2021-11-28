@@ -4,6 +4,7 @@ import (
 	"fmt"
 
 	"github.com/44smkn/kubectl-role-diff/pkg/model"
+	"k8s.io/apimachinery/pkg/runtime/schema"
 	"k8s.io/client-go/discovery"
 )
 
@@ -29,10 +30,14 @@ func (s *defaultServerResourceFetcher) Fetch() ([]model.APIResource, error) {
 
 	apiResources := make([]model.APIResource, 0, 100)
 	for _, list := range lists {
+		gv, err := schema.ParseGroupVersion(list.GroupVersion)
+		if err != nil {
+			return nil, fmt.Errorf("failed to parse GroupVersion: %w", err)
+		}
 		for _, resource := range list.APIResources {
 			elem := model.APIResource{
 				Name:  resource.Name,
-				Group: resource.Group,
+				Group: gv.Group,
 				Verbs: resource.Verbs,
 			}
 			apiResources = append(apiResources, elem)
