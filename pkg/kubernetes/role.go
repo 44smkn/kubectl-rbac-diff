@@ -4,9 +4,9 @@ import (
 	"fmt"
 
 	"github.com/44smkn/kubectl-role-diff/pkg/model"
-	"gopkg.in/yaml.v2"
 	rbacv1 "k8s.io/api/rbac/v1"
 	rbacutil "k8s.io/kubectl/pkg/util/rbac"
+	"sigs.k8s.io/yaml"
 )
 
 type RoleResourceParser interface {
