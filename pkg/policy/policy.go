@@ -8,7 +8,7 @@ import (
 )
 
 var (
-	defaultHeader = []string{"apiGroup", "resource", "create", "delete", "deletecollection", "get", "list", "patch", "update", "watch"}
+	defaultHeader = []string{"APIGROUP", "RESOURCE", "CREATE", "DELETE", "DELETECOLLECTION", "GET", "LIST", "PATCH", "UPDATE", "WATCH"}
 )
 
 type PolicyTable struct {
@@ -23,7 +23,7 @@ func NewPolicyTable(policyTableRows []PolicyTableRow) *PolicyTable {
 	}
 }
 
-func (p *PolicyTable) RenderWithoutHeader() [][]string {
+func (p *PolicyTable) Render() [][]string {
 	table := make([][]string, 0)
 	for _, row := range p.Contents {
 		table = append(table, row.Render())
@@ -102,9 +102,9 @@ func convVerbPermission(verbPermission *bool) string {
 		return "/"
 	}
 	if *verbPermission {
-		return "OK"
+		return "Yes"
 	}
-	return "NG"
+	return "No"
 }
 
 type PolicyTableGenerator interface {

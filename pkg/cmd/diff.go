@@ -90,8 +90,7 @@ func diffRun(opts *DiffOptions) error {
 		return fmt.Errorf("failed to generate \"from\" table: %w", err)
 	}
 	fromOut := filepath.Join(dir, "from.yaml")
-	fromHeader := append(fromPolicies.Header, "from")
-	policy.WriteTableToFile(fromOut, fromPolicies.RenderWithoutHeader(), fromHeader)
+	policy.WriteTableToFile(fromOut, fromPolicies.Render())
 
 	toContents, err := policy.ReadFile(opts.ToFilename)
 	if err != nil {
@@ -102,11 +101,10 @@ func diffRun(opts *DiffOptions) error {
 		return fmt.Errorf("failed to generate \"to\" table: %w", err)
 	}
 	toOut := filepath.Join(dir, "to.yaml")
-	toHeader := append(toPolicies.Header, "to  ")
-	policy.WriteTableToFile(toOut, toPolicies.RenderWithoutHeader(), toHeader)
+	policy.WriteTableToFile(toOut, toPolicies.Render())
 
 	// fmt.Fprintf(opts.Out, "%s - %s\n", fromOut, toOut)
-	out, _ := exec.Command("diff", "-U", "1", "--label", "from", "--label", "to", fromOut, toOut).Output()
+	out, _ := exec.Command("colordiff", "-U", "2", fromOut, toOut).Output()
 	if len(out) == 0 {
 		return nil
 	}
