@@ -13,14 +13,14 @@ func NewCmdVersion(version, buildDate string) *cobra.Command {
 		Use:    "version",
 		Hidden: true,
 		Run: func(cmd *cobra.Command, args []string) {
-			fmt.Fprint(os.Stdout, Format(version, buildDate))
+			fmt.Fprint(os.Stdout, FormatVersion(version, buildDate))
 		},
 	}
 
 	return cmd
 }
 
-func Format(version, buildDate string) string {
+func FormatVersion(version, buildDate string) string {
 	version = strings.TrimPrefix(version, "v")
 
 	var dateStr string
